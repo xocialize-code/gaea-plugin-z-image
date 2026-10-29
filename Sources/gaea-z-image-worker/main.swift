@@ -191,7 +191,7 @@ let plugin = GaeaPluginDefinition(
     version: "0.1.0",
     minGaea: "0.2.0",
     team: "CFZS6RXUCP",
-    repo: "https://github.com/xocialize/gaea-plugin-z-image",
+    repo: "https://github.com/xocialize-code/gaea-plugin-z-image",
     title: "Z-Image",
     summary: "Tongyi-MAI Z-Image 6B (Apache-2.0): Turbo, distilled to 8 steps, and the base model with CFG and negative prompts. "
         + "Photoreal, with English and Chinese text rendering.",
