@@ -188,7 +188,7 @@ func params(_ tier: Tier) -> JSONValue {
 
 let plugin = GaeaPluginDefinition(
     id: "com.xocialize.gaea.z-image",
-    version: "0.1.1",
+    version: "0.1.2",
     minGaea: "0.2.0",
     team: "CFZS6RXUCP",
     repo: "https://github.com/xocialize-code/gaea-plugin-z-image",
