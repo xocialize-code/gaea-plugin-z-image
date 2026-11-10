@@ -15,10 +15,11 @@ gaea plugins add https://github.com/xocialize-code/gaea-plugin-z-image
 |---|---|---|---|
 | `z-image-turbo` | `image.generate` (Gaea's default) | draft, standard | Distilled to 8 steps without CFG. A negative prompt does nothing and is reported `negative_prompt_ignored`. |
 | `z-image` | `image.generate` | best | The base model: 28 steps, CFG 4, honours negative prompts. Slower, with finer detail. |
-| `z-image-nitrofusion2` | `image.generate` (named-only) | draft | NitroFusion2: Turbo in 1–4 steps, two by default. About a third of Turbo's time at the same memory. Text-to-image only. Since 0.2.0. |
+| `z-image-nitrofusion2` | `image.generate` (named-only) | by name | NitroFusion2: Turbo in 1–4 steps, two by default. About a third of Turbo's time at the same memory. Text-to-image only. Since 0.2.0. |
 | Turbo and base | `image.edit` (named-only) | as above | Image-to-image: re-generates the first image toward the instruction at `strength` 0–1 (default 0.75). It isn't an instruction editor, so a client asks for it by name. |
 
-**NitroFusion2** runs when a client names it. On an M5 Max at 1024² it takes 3.6 to 4.2 s at two steps and about 2.3 s
+**NitroFusion2** runs when a client names it. Which model answers each quality tier of `image.generate` is set by Gaea's
+image normalizer, not by this plugin, and its table doesn't list NitroFusion2 yet. On an M5 Max at 1024² it takes 3.6 to 4.2 s at two steps and about 2.3 s
 at one, against Turbo's 11 to 12 s (z-image-swift's measurements, AB-R-0818 and AB-R-0819).
 - Two steps apply the authors' de-distillation LoRA and render short text reliably; one step is the fastest, and its
   text is the least reliable. Small text is weaker than Turbo's at any step count.
