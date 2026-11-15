@@ -216,6 +216,10 @@ public func textToImage(prompt: String, negative: String? = nil, width: Int, hei
 
 let apache: JSONValue = ["spdx": "Apache-2.0", "commercial_use": true, "terms_url": "https://www.apache.org/licenses/LICENSE-2.0"]
 let limits = PluginManifest.Limits(maxPixels: maxPixels, minSide: minSide, maxSide: maxSide, sizeMultiple: grid)
+/// Z-Image's edit re-generates the picture at a strength; it can't paint a region it is shown (GPP-1 §4.3). Gaea 1.7.1
+/// reads this and keeps both models off image.fill, image.extend and image.erase, where they could only fail
+/// (AB-A-0267). An older Gaea ignores it.
+let imageToImage = ["image_to_image": true]
 let editLimits = PluginManifest.Limits(maxPixels: maxPixels, minSide: minSide, maxSide: maxSide, sizeMultiple: grid, maxImages: 1)
 
 func stepsParam(_ tier: Tier) -> JSONValue {
@@ -243,7 +247,7 @@ func params(_ tier: Tier) -> JSONValue {
 
 public let zImagePlugin = GaeaPluginDefinition(
     id: "com.xocialize.gaea.z-image",
-    version: "0.2.0",
+    version: "0.2.1",
     // GaeaPluginKit 0.12.0 on mlx-engine-swift 0.74.1: Gaea 1.1.1 is the first that decodes its manifests.
     minGaea: "1.1.1",
     team: "CFZS6RXUCP",
@@ -286,12 +290,12 @@ public let zImagePlugin = GaeaPluginDefinition(
             model: ["id": "z-image-turbo", "title": "Z-Image Turbo (image to image)", "license": apache, "memory_class": "large",
                     "speed_class": "fast", "quality_tiers": ["draft", "standard"], "named_only": true,
                     "notes": "Re-generates the first image toward the instruction; strength 0–1 (default 0.75). Not an instruction editor."],
-            params: params(.turbo), limits: editLimits),
+            params: params(.turbo), limits: editLimits, supports: imageToImage),
         PluginManifest.Offer(
             operation: "image.edit", profile: "image",
             model: ["id": "z-image", "title": "Z-Image (image to image)", "license": apache, "memory_class": "large",
                     "speed_class": "slow", "quality_tiers": ["best"], "named_only": true,
                     "notes": "Re-generates the first image toward the instruction, with CFG; strength 0–1 (default 0.75). Not an instruction editor."],
-            params: params(.base), limits: editLimits),
+            params: params(.base), limits: editLimits, supports: imageToImage),
     ])
 

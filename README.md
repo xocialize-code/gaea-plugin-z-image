@@ -26,6 +26,9 @@ at one, against Turbo's 11 to 12 s (z-image-swift's measurements, AB-R-0818 and 
 - `x-zimage.steps` is 1 to 4; any other count is refused.
 - No CFG: a negative prompt does nothing and is reported `negative_prompt_ignored`.
 
+- **Not on fill, extend or erase** (0.2.1). Gaea runs those with an edit model by showing it the region and telling it
+  what to paint there. Z-Image's edit re-generates the whole picture at a strength, so it can't, and its `image.edit`
+  offers say so (`supports.image_to_image`). Gaea 1.7.1 and later doesn't list Z-Image on those operations.
 - **Sizes.** 256–2048 px a side, at most 1536² in area, in multiples of 16. Anything else is fitted and reported
   `size_snapped`. `aspect` with `megapixels` works too. `image.edit` keeps the input's size.
 - **`count`.** 1–8 images, each with `seed + i`. A request without a seed gets one, reported in `effective`.

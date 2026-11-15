@@ -49,4 +49,9 @@ import Testing
         #expect(turbo.model["default"] == true)
         #expect(turbo.params?["properties"]?["x-zimage.steps"]?["maximum"] == 100)
     }
+
+    @Test func editOffersSayTheyRegenerate() throws {
+        let edits = try zImagePlugin.manifest().offers.filter { $0.operation == "image.edit" }
+        #expect(edits.count == 2 && edits.allSatisfy { $0.supports == ["image_to_image": true] })
+    }
 }
