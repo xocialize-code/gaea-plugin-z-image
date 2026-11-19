@@ -247,8 +247,10 @@ func params(_ tier: Tier) -> JSONValue {
 
 public let zImagePlugin = GaeaPluginDefinition(
     id: "com.xocialize.gaea.z-image",
-    version: "0.2.1",
-    // GaeaPluginKit 0.12.0 on mlx-engine-swift 0.74.1: Gaea 1.1.1 is the first that decodes its manifests.
+    version: "0.2.2",
+    // GaeaPluginKit 0.12.0, first on mlx-engine-swift 0.74.1: Gaea 1.1.1 is the first that decodes its manifests. 0.2.2
+    // is on mlx-engine-swift 0.82.1 (contract 1.66.0): its manifest adds only an empty requirements.processEnvironment,
+    // which the earlier engines' synthesized decoders skip.
     minGaea: "1.1.1",
     team: "CFZS6RXUCP",
     repo: "https://github.com/xocialize-code/gaea-plugin-z-image",
